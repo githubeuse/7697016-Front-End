@@ -1,7 +1,6 @@
 const reponse = await fetch('pieces-autos.json');
 const pieces = await reponse.json();
 
-
 for (let i = 0; i < pieces.length; i++) {
 
     const article = pieces[i];
@@ -58,3 +57,11 @@ for (let i = 0; i < pieces.length; i++) {
     //On rattache la balise descriptionElement à la section pieceElement
     sectionFiches.appendChild(descriptionElement);
 }
+
+const boutonTrier = document.querySelector(".btn-trier");
+boutonTrier.addEventListener("click", function() {
+    pieces.sort(function(a,b){
+        return a.prix - b.prix;
+    });
+    console.log(pieces);
+});
