@@ -60,7 +60,8 @@ for (let i = 0; i < pieces.length; i++) {
 
 const boutonTrier = document.querySelector(".btn-trier");
 boutonTrier.addEventListener("click", function() {
-    pieces.sort(function(a,b){
+    const piecesOrdonnees = Array.from(pieces);
+    piecesOrdonnees.sort(function(a,b){
         return a.prix - b.prix;
     });
     console.log(pieces);
