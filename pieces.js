@@ -39,6 +39,7 @@ for (let i = 0; i < pieces.length; i++) {
     //On rattache la balise article à la section Fiches
     sectionFiches.appendChild(pieceElement);
 
+
     //On rattache la balise nomElement à la section Fiches
     pieceElement.appendChild(nomElement);
 
@@ -55,7 +56,8 @@ for (let i = 0; i < pieces.length; i++) {
     pieceElement.appendChild(imageElement);
 
     //On rattache la balise descriptionElement à la section pieceElement
-    sectionFiches.appendChild(descriptionElement);
+    pieceElement.appendChild(descriptionElement);
+
 }
 
 const boutonTrier = document.querySelector(".btn-trier");
@@ -84,7 +86,7 @@ const boutonFiltrer = document.querySelector(".btn-filtrer");
 
 boutonFiltrer.addEventListener("click", function ()  {
     const piecesFiltrees = pieces.filter( function (piece) {
-    return piece.prix <=35 ;
+    return piece.prix <= 35 ;
     });
     console.log(piecesFiltrees);
 });
@@ -98,3 +100,58 @@ boutonDescription.addEventListener("click", function () {
     });
     console.log(piecesAvecDescription);
 });
+
+//Création des deux listes : nom et prix pour pièces disponibles
+const disponiblesNoms = pieces.map(piece => piece.nom)
+const disponiblesPrix = pieces.map(piece => piece.prix)
+
+//Suppression des éléments non disponibles
+for (let i = pieces.length -1 ; i >= 0 ; i--) {
+	if(pieces[i].disponibilite === false){
+		disponiblesNoms.splice(i,1)
+		disponiblesPrix.splice(i,1)
+    }
+}
+//Création de la liste intitulée disponiblesElements
+const disponiblesElements = document.createElement('ul');
+
+//Création de chaque élément de la liste 
+for(let i=0; i < disponiblesNoms.length ; i++){
+	const nomDisponibleElement = document.createElement('li');
+    nomDisponibleElement.innerText = `${disponiblesNoms[i]} - ${disponiblesPrix[i]} €`
+	disponiblesElements.appendChild(nomDisponibleElement)
+}
+
+console.log(disponiblesElements)
+
+
+document.querySelector('.disponibles').appendChild(disponiblesElements)
+
+//Création de deux listes : nom et prix pour pièces abordables
+const abordablesNoms = pieces.map(piece => piece.nom)
+const abordablesPrix = pieces.map(piece => piece.prix)
+
+//Suppression des éléments dont le prix est supérieur à 35 euros
+for (let i = pieces.length -1 ; i >= 0 ; i--){
+	if(pieces[i].prix > 35){
+		abordablesNoms.splice(i,1)
+		abordablesPrix.splice(i,1)
+    
+	}
+}
+
+//Création de la liste intitulée abordablesElements
+const abordablesElements = document.createElement ('ul');
+
+//Création de chaque élément de la liste
+for(let i=0; i < abordablesNoms.length ; i++) {
+    const nomAbordableElement = document.createElement ('li');
+    nomAbordableElement.innerText = `${abordablesNoms[i]} - ${abordablesPrix[i]} €`
+    abordablesElements.appendChild(nomAbordableElement)
+}
+
+console.log(abordablesElements);
+
+document.querySelector('.abordables').appendChild(abordablesElements) 
+
+
